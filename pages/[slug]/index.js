@@ -1,12 +1,26 @@
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import usePaintings from '../../hooks/usePaintings';
 import Spinner from '../../components/Spinner';
+import Modal from '../../components/Modal';
+import iconViewImage from '../../public/assets/shared/icon-view-image.svg';
 
 function Painting({ slug }) {
+  const [modalOpen, setModalOpen] = useState(false);
   const { painting, isLoading, isError } = usePaintings(slug);
+
+  useEffect(() => {
+    if (modalOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'visible';
+    }
+  }, [modalOpen]);
 
   if (isLoading) return <Spinner />;
   if (isError) return <div>Failed to load</div>;
+
+  console.log(painting);
 
   return (
     <article>
@@ -32,6 +46,17 @@ function Painting({ slug }) {
                     height={painting.images.bigheight}
                   />
                 </div>
+
+                <button
+                  type='button'
+                  className='absolute top-4 left-4 flex items-center justify-center gap-3 bg-black py-3 px-6 text-white md:bottom-6 md:top-auto xl:bottom-20'
+                  onClick={() => setModalOpen(true)}
+                >
+                  <Image src={iconViewImage} alt='icon view image' />
+                  <span className='text-xs font-bold uppercase'>
+                    View image
+                  </span>
+                </button>
               </div>
 
               <figcaption className='relative -top-12 right-0 mx-auto flex w-full max-w-xl flex-col md:absolute md:top-0 md:items-end xl:-right-80 xl:h-full xl:items-center xl:justify-between'>
@@ -74,6 +99,18 @@ function Painting({ slug }) {
           </div>
         </div>
       </div>
+
+      {modalOpen && (
+        <Modal
+          image={{
+            src: painting.images.gallery,
+            width: painting.images.gallerywidth,
+            height: painting.images.galleryheight,
+            alt: painting.name,
+          }}
+          handleClose={() => setModalOpen(false)}
+        />
+      )}
     </article>
   );
 }
