@@ -1,13 +1,16 @@
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import usePaintings from '../../hooks/usePaintings';
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
 import iconViewImage from '../../public/assets/shared/icon-view-image.svg';
+import iconNextButton from '../../public/assets/shared/icon-next-button.svg';
+import iconBackButton from '../../public/assets/shared/icon-back-button.svg';
 
-function Painting({ slug }) {
+function Painting({ id }) {
   const [modalOpen, setModalOpen] = useState(false);
-  const { painting, isLoading, isError } = usePaintings(slug);
+  const { total, painting, isLoading, isError } = usePaintings(id);
 
   useEffect(() => {
     if (modalOpen) {
@@ -19,8 +22,6 @@ function Painting({ slug }) {
 
   if (isLoading) return <Spinner />;
   if (isError) return <div>Failed to load</div>;
-
-  console.log(painting);
 
   return (
     <article>
@@ -100,6 +101,27 @@ function Painting({ slug }) {
         </div>
       </div>
 
+      <nav className='fixed bottom-4 left-1/2 w-[92vw] -translate-x-1/2 bg-white px-8 py-6 shadow-lg sm:w-[72vw] lg:w-[60vw] xl:w-[80vw]'>
+        <div className='flex items-center justify-between gap-8'>
+          <div>
+            <h3 className='mb-2 text-sm font-bold'>{painting.name}</h3>
+            <h4 className='text-xs text-gray-500'>{painting.artist.name}</h4>
+          </div>
+          <div className='flex items-center gap-8'>
+            <Link href={`/${painting.id > 1 ? painting.id - 1 : total}`}>
+              <a>
+                <Image src={iconBackButton} width={14} height={14} alt='back' />
+              </a>
+            </Link>
+            <Link href={`/${painting.id < total ? painting.id + 1 : 1}`}>
+              <a>
+                <Image src={iconNextButton} width={14} height={14} alt='next' />
+              </a>
+            </Link>
+          </div>
+        </div>
+      </nav>
+
       {modalOpen && (
         <Modal
           image={{
@@ -118,7 +140,7 @@ function Painting({ slug }) {
 export async function getServerSideProps(context) {
   return {
     props: {
-      slug: context.params.slug,
+      id: context.params.id,
     },
   };
 }

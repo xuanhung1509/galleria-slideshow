@@ -1,7 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import usePaintings from '../hooks/usePaintings';
-import { toKebabCase } from '../utils/formatString';
 import Spinner from '../components/Spinner';
 
 function Home() {
@@ -16,7 +15,8 @@ function Home() {
         <ul className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'>
           {paintings.map((item) => (
             <PaintingItem
-              key={item.name}
+              key={item.id}
+              id={item.id}
               name={item.name}
               artist={item.artist.name}
               image={item.images}
@@ -28,10 +28,10 @@ function Home() {
   );
 }
 
-function PaintingItem({ name, artist, image }) {
+function PaintingItem({ id, name, artist, image }) {
   return (
     <li className='mb-8 bg-red-50 leading-none'>
-      <Link href={`/${toKebabCase(name)}`}>
+      <Link href={`/${id}`}>
         <a>
           <figure className='relative'>
             <Image
