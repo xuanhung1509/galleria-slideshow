@@ -12,6 +12,7 @@ function Painting({ id }) {
   const [modalOpen, setModalOpen] = useState(false);
   const { total, painting, isLoading, isError } = usePaintings(id);
 
+  // Prevent scrolling when modal open
   useEffect(() => {
     if (modalOpen) {
       document.body.style.overflow = 'hidden';
@@ -24,7 +25,7 @@ function Painting({ id }) {
   if (isError) return <div>Failed to load</div>;
 
   return (
-    <article>
+    <article className='mb-24'>
       <div className='container'>
         <div className='grid grid-cols-1 items-center gap-8 lg:pt-8 xl:grid-cols-2 xl:gap-24'>
           <div className='relative'>
