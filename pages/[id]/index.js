@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import usePaintings from '../../hooks/usePaintings';
 import useScroll from '../../hooks/useScroll';
 import Spinner from '../../components/Spinner';
@@ -8,6 +9,12 @@ import Modal from '../../components/Modal';
 import iconViewImage from '../../public/assets/shared/icon-view-image.svg';
 import iconNextButton from '../../public/assets/shared/icon-next-button.svg';
 import iconBackButton from '../../public/assets/shared/icon-back-button.svg';
+
+const variants = {
+  hidden: { opacity: 0, x: -200, y: 0 },
+  enter: { opacity: 1, x: 0, y: 0 },
+  exit: { opacity: 0, x: 200, y: 0 },
+};
 
 function Painting({ id }) {
   const [modalOpen, setModalOpen] = useState(false);
@@ -28,7 +35,14 @@ function Painting({ id }) {
 
   return (
     <article>
-      <div className='container'>
+      <motion.div
+        variants={variants}
+        initial='hidden'
+        animate='enter'
+        exit='exit'
+        transition={{ duration: 1 }}
+        className='container'
+      >
         <div className='grid grid-cols-1 items-center gap-8 lg:pt-8 xl:grid-cols-2 xl:gap-24'>
           <div className='relative'>
             <figure className='relative mx-auto lg:max-w-3xl'>
@@ -102,7 +116,7 @@ function Painting({ id }) {
             </a>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       <nav
         className={`fixed bottom-4 left-1/2 w-[92vw] -translate-x-1/2 bg-white px-8 py-6 shadow-lg transition-all sm:w-[72vw] lg:w-[60vw] xl:w-[80vw] ${
