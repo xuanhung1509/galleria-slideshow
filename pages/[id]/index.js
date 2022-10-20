@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import usePaintings from '../../hooks/usePaintings';
@@ -11,6 +11,24 @@ import iconBackButton from '../../public/assets/shared/icon-back-button.svg';
 function Painting({ id }) {
   const [modalOpen, setModalOpen] = useState(false);
   const { total, painting, isLoading, isError } = usePaintings(id);
+  const [navVisible, setNavVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const controlNavbar = useCallback(() => {
+    if (window.scrollY > lastScrollY) {
+      setNavVisible(false);
+    } else {
+      setNavVisible(true);
+    }
+
+    setLastScrollY(window.scrollY);
+  }, [lastScrollY]);
+
+  useEffect(() => {
+    window.addEventListener('scroll', controlNavbar);
+
+    return () => window.removeEventListener('scroll', controlNavbar);
+  }, [controlNavbar]);
 
   // Prevent scrolling when modal open
   useEffect(() => {
@@ -25,7 +43,7 @@ function Painting({ id }) {
   if (isError) return <div>Failed to load</div>;
 
   return (
-    <article className='mb-24'>
+    <article>
       <div className='container'>
         <div className='grid grid-cols-1 items-center gap-8 lg:pt-8 xl:grid-cols-2 xl:gap-24'>
           <div className='relative'>
@@ -102,7 +120,11 @@ function Painting({ id }) {
         </div>
       </div>
 
-      <nav className='fixed bottom-4 left-1/2 w-[92vw] -translate-x-1/2 bg-white px-8 py-6 shadow-lg sm:w-[72vw] lg:w-[60vw] xl:w-[80vw]'>
+      <nav
+        className={`fixed bottom-4 left-1/2 w-[92vw] -translate-x-1/2 bg-white px-8 py-6 shadow-lg transition-all sm:w-[72vw] lg:w-[60vw] xl:w-[80vw] ${
+          !navVisible && 'translate-y-full opacity-0'
+        }`}
+      >
         <div className='flex items-center justify-between gap-8'>
           <div>
             <h3 className='mb-2 text-sm font-bold'>{painting.name}</h3>
