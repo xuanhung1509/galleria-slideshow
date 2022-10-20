@@ -1,7 +1,8 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import usePaintings from '../../hooks/usePaintings';
+import useScroll from '../../hooks/useScroll';
 import Spinner from '../../components/Spinner';
 import Modal from '../../components/Modal';
 import iconViewImage from '../../public/assets/shared/icon-view-image.svg';
@@ -11,24 +12,7 @@ import iconBackButton from '../../public/assets/shared/icon-back-button.svg';
 function Painting({ id }) {
   const [modalOpen, setModalOpen] = useState(false);
   const { total, painting, isLoading, isError } = usePaintings(id);
-  const [navVisible, setNavVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  const controlNavbar = useCallback(() => {
-    if (window.scrollY > lastScrollY) {
-      setNavVisible(false);
-    } else {
-      setNavVisible(true);
-    }
-
-    setLastScrollY(window.scrollY);
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    window.addEventListener('scroll', controlNavbar);
-
-    return () => window.removeEventListener('scroll', controlNavbar);
-  }, [controlNavbar]);
+  const navVisible = useScroll();
 
   // Prevent scrolling when modal open
   useEffect(() => {
