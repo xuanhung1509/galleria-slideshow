@@ -1,14 +1,8 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import usePaintings from '../hooks/usePaintings';
-import Spinner from '../components/Spinner';
+import { server } from '../config';
 
-function Home() {
-  const { paintings, isLoading, isError } = usePaintings();
-
-  if (isLoading) return <Spinner />;
-  if (isError) return <div>Failed to load</div>;
-
+function Home({ paintings }) {
   return (
     <section>
       <div className='container'>
@@ -53,6 +47,17 @@ function PaintingItem({ id, name, artist, image }) {
       </Link>
     </li>
   );
+}
+
+export async function getStaticProps() {
+  const res = await fetch(`${server}/api/paintings`);
+  const paintings = await res.json();
+
+  return {
+    props: {
+      paintings,
+    },
+  };
 }
 
 export default Home;
