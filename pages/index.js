@@ -27,7 +27,7 @@ const item = {
   },
 };
 
-function Home({ paintings }) {
+function Gallery({ paintings }) {
   return (
     <section>
       <div className='container'>
@@ -39,7 +39,7 @@ function Home({ paintings }) {
             className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'
           >
             {paintings.map((item) => (
-              <PaintingItem
+              <Painting
                 key={item.id}
                 id={item.id}
                 name={item.name}
@@ -54,7 +54,7 @@ function Home({ paintings }) {
   );
 }
 
-function PaintingItem({ id, name, artist, image }) {
+function Painting({ id, name, artist, image }) {
   return (
     <motion.li variants={item} className='mb-8 leading-none'>
       <Link href={`/${id}`}>
@@ -92,4 +92,4 @@ export async function getStaticProps() {
   };
 }
 
-export default Home;
+export default Gallery;
