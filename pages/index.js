@@ -1,22 +1,54 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { motion } from 'framer-motion';
 import { server } from '../config';
+
+const container = {
+  hidden: {
+    opacity: 0,
+  },
+  visible: {
+    opacity: 1,
+    transition: {
+      ease: 'easeOut',
+      delayChildren: 0.5,
+      staggerChildren: 0.25,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
 
 function Home({ paintings }) {
   return (
     <section>
       <div className='container'>
-        <ul className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'>
-          {paintings.map((item) => (
-            <PaintingItem
-              key={item.id}
-              id={item.id}
-              name={item.name}
-              artist={item.artist.name}
-              image={item.images}
-            />
-          ))}
-        </ul>
+        {paintings && (
+          <motion.ul
+            variants={container}
+            initial='hidden'
+            animate='visible'
+            className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'
+          >
+            {paintings.map((item) => (
+              <PaintingItem
+                key={item.id}
+                id={item.id}
+                name={item.name}
+                artist={item.artist.name}
+                image={item.images}
+              />
+            ))}
+          </motion.ul>
+        )}
       </div>
     </section>
   );
@@ -24,7 +56,7 @@ function Home({ paintings }) {
 
 function PaintingItem({ id, name, artist, image }) {
   return (
-    <li className='mb-8 bg-red-50 leading-none'>
+    <motion.li variants={item} className='mb-8 leading-none'>
       <Link href={`/${id}`}>
         <a>
           <figure className='relative'>
@@ -45,7 +77,7 @@ function PaintingItem({ id, name, artist, image }) {
           </figure>
         </a>
       </Link>
-    </li>
+    </motion.li>
   );
 }
 
