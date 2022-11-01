@@ -1,8 +1,8 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { motion } from 'framer-motion';
-import { server } from '../config';
 import { useEffect } from 'react';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
+import ImageWithShimmer from '../components/ImageWithShimmer';
+import { server } from '../config';
 
 const macyOptions = {
   container: '#macy-grid',
@@ -86,7 +86,7 @@ function Painting({ id, name, artist, image }) {
       <Link href={`/${id}`}>
         <a>
           <figure className='relative'>
-            <Image
+            <ImageWithShimmer
               src={image.thumbnail}
               width={image.thumbwidth}
               height={image.thumbheight}
