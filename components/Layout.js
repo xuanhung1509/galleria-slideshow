@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from 'public/assets/shared/logo.svg';
+import logo from '@/public/assets/shared/logo.svg';
 
 function Layout({ children }) {
   return (

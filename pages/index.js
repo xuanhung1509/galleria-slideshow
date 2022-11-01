@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import ImageWithShimmer from 'components/ImageWithShimmer';
-import { server } from 'config';
+import ImageWithShimmer from '@/components/ImageWithShimmer';
+import { server } from '@/config';
 
 const macyOptions = {
   container: '#macy-grid',

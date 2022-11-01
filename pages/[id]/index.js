@@ -2,13 +2,13 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
-import useScroll from 'hooks/useScroll';
-import Modal from 'components/Modal';
-import ImageWithShimmer from 'components/ImageWithShimmer';
-import iconViewImage from 'public/assets/shared/icon-view-image.svg';
-import iconNextButton from 'public/assets/shared/icon-next-button.svg';
-import iconBackButton from 'public/assets/shared/icon-back-button.svg';
-import { server } from 'config';
+import useScroll from '@/hooks/useScroll';
+import Modal from '@/components/Modal';
+import ImageWithShimmer from '@/components/ImageWithShimmer';
+import iconViewImage from '@/public/assets/shared/icon-view-image.svg';
+import iconNextButton from '@/public/assets/shared/icon-next-button.svg';
+import iconBackButton from '@/public/assets/shared/icon-back-button.svg';
+import { server } from '@/config';
 
 const variants = {
   hidden: { opacity: 0, x: -200, y: 0 },
