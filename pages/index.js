@@ -2,7 +2,23 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { server } from '../config';
+import { useEffect } from 'react';
 
+const macyOptions = {
+  container: '#macy-grid',
+  waitForImages: false,
+  trueOrder: false,
+  mobileFirst: true,
+  columns: 1,
+  margin: 16,
+  breakAt: {
+    576: 2,
+    1024: 3,
+    1280: 4,
+  },
+};
+
+// Framer motion variants
 const container = {
   hidden: {
     opacity: 0,
@@ -28,6 +44,15 @@ const item = {
 };
 
 function Gallery({ paintings }) {
+  useEffect(() => {
+    const initMacy = async () => {
+      const Macy = (await import('macy')).default;
+      new Macy(macyOptions);
+    };
+
+    initMacy();
+  }, []);
+
   return (
     <section>
       <div className='container'>
@@ -36,6 +61,7 @@ function Gallery({ paintings }) {
             variants={container}
             initial='hidden'
             animate='visible'
+            id='macy-grid'
             className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'
           >
             {paintings.map((item) => (
