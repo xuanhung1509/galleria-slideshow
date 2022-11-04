@@ -46,7 +46,7 @@ function Painting({ data }) {
             initial='hidden'
             animate='enter'
             exit='exit'
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.75 }}
             className='grid grid-cols-1 items-center gap-8 lg:pt-8 xl:grid-cols-2 xl:gap-24'
           >
             <div className='relative'>
