@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import useScroll from '@/hooks/useScroll';
 import Modal from '@/components/Modal';
-import ImageWithShimmer from '@/components/ImageWithShimmer';
+import ImageWrapper from '@/components/ImageWrapper';
 import iconViewImage from '@/public/assets/shared/icon-view-image.svg';
 import iconNextButton from '@/public/assets/shared/icon-next-button.svg';
 import iconBackButton from '@/public/assets/shared/icon-back-button.svg';
@@ -54,7 +54,7 @@ function Painting({ data }) {
                 {/* Painting */}
                 <div className='md:max-w-lg xl:pb-12'>
                   <div className='md:hidden'>
-                    <ImageWithShimmer
+                    <ImageWrapper
                       src={painting.images.hero.small}
                       width={painting.images.smallwidth}
                       height={painting.images.smallheight}
@@ -62,7 +62,7 @@ function Painting({ data }) {
                     />
                   </div>
                   <div className='hidden md:block'>
-                    <ImageWithShimmer
+                    <ImageWrapper
                       src={painting.images.hero.large}
                       width={painting.images.bigwidth}
                       height={painting.images.bigheight}
@@ -94,7 +94,7 @@ function Painting({ data }) {
 
                   {/* Artist image */}
                   <div className='mx-6 h-16 w-16 md:h-32 md:w-32'>
-                    <ImageWithShimmer
+                    <ImageWrapper
                       src={painting.artist.image}
                       width={painting.artist.artistwidth}
                       height={painting.artist.artistheight}
@@ -159,7 +159,7 @@ function Painting({ data }) {
             closeButtonVisible={closeButtonVisible}
             handleClose={() => setModalOpen(false)}
           >
-            <ImageWithShimmer
+            <ImageWrapper
               src={painting.images.gallery}
               width={painting.images.gallerywidth}
               height={painting.images.galleryheight}

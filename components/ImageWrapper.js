@@ -20,7 +20,7 @@ const toBase64 = (str) =>
     ? Buffer.from(str).toString('base64')
     : window.btoa(str);
 
-function ImageWithShimmer(props) {
+function ImageWrapper(props) {
   const { src, width, height, alt, onLoadingComplete, onClick } = props;
 
   return (
@@ -39,4 +39,4 @@ function ImageWithShimmer(props) {
   );
 }
 
-export default ImageWithShimmer;
+export default ImageWrapper;

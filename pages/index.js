@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import ImageWithShimmer from '@/components/ImageWithShimmer';
+import ImageWrapper from '@/components/ImageWrapper';
 import { server } from '@/config';
 
 const macyOptions = {
@@ -86,7 +86,7 @@ function Painting({ id, name, artist, image }) {
       <Link href={`/${id}`}>
         <a>
           <figure className='relative'>
-            <ImageWithShimmer
+            <ImageWrapper
               src={image.thumbnail}
               width={image.thumbwidth}
               height={image.thumbheight}
