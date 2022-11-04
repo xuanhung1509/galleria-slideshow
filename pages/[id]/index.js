@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -17,6 +17,7 @@ const variants = {
 };
 
 function Painting({ data }) {
+  const scrollPos = useRef(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [closeButtonVisible, setCloseButtonVisible] = useState(false);
   const { currentPainting: painting, total } = data;
@@ -25,9 +26,13 @@ function Painting({ data }) {
   // Prevent scrolling when modal open
   useEffect(() => {
     if (modalOpen) {
-      document.body.style.overflow = 'hidden';
+      scrollPos.current = window.pageYOffset;
+      document.body.classList.add('noscroll');
+      document.body.style.top = -scrollPos.current + 'px';
     } else {
-      document.body.style.overflow = 'visible';
+      document.body.classList.remove('noscroll');
+      document.body.style.top = 0;
+      window.scrollTo(0, scrollPos.current);
     }
   }, [modalOpen]);
 

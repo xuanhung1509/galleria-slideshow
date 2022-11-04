@@ -41,7 +41,7 @@ function Backdrop({ children, handleClose }) {
       initial='hidden'
       animate='visible'
       exit='hidden'
-      className='fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-black/50'
+      className='fixed top-0 left-0 flex h-screen w-screen items-center justify-center bg-black/75'
       onClick={handleClose}
     >
       {children}
