@@ -159,7 +159,7 @@ function Painting({ data }) {
             closeButtonVisible={closeButtonVisible}
             handleClose={() => setModalOpen(false)}
           >
-            <Image
+            <ImageWithShimmer
               src={painting.images.gallery}
               width={painting.images.gallerywidth}
               height={painting.images.galleryheight}

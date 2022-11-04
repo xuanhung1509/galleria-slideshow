@@ -20,7 +20,9 @@ const toBase64 = (str) =>
     ? Buffer.from(str).toString('base64')
     : window.btoa(str);
 
-function ImageWithShimmer({ src, width, height, alt }) {
+function ImageWithShimmer(props) {
+  const { src, width, height, alt, onLoadingComplete, onClick } = props;
+
   return (
     <Image
       src={src}
@@ -31,6 +33,8 @@ function ImageWithShimmer({ src, width, height, alt }) {
       blurDataURL={`data:image/svg+xml;base64,${toBase64(
         shimmer(width, height)
       )}`}
+      onLoadingComplete={onLoadingComplete}
+      onClick={onClick}
     />
   );
 }
