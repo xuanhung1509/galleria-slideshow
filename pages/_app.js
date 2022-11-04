@@ -1,10 +1,13 @@
+import useIsFirstRender from '@/hooks/useIsFirstRender';
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
+  const isAppFirstRender = useIsFirstRender();
+
   return (
     <Layout>
-      <Component {...pageProps} />
+      <Component isAppFirstRender={isAppFirstRender} {...pageProps} />
     </Layout>
   );
 }

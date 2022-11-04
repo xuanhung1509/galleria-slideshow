@@ -25,11 +25,6 @@ const container = {
   },
   visible: {
     opacity: 1,
-    transition: {
-      ease: 'easeOut',
-      delayChildren: 0.5,
-      staggerChildren: 0.25,
-    },
   },
 };
 
@@ -43,7 +38,7 @@ const item = {
   },
 };
 
-function Gallery({ paintings }) {
+function Gallery({ isAppFirstRender, paintings }) {
   useEffect(() => {
     const initMacy = async () => {
       const Macy = (await import('macy')).default;
@@ -61,6 +56,11 @@ function Gallery({ paintings }) {
             variants={container}
             initial='hidden'
             animate='visible'
+            transition={{
+              ease: 'easeOut',
+              delayChildren: isAppFirstRender ? 0.5 : 0,
+              staggerChildren: isAppFirstRender ? 0.25 : 0,
+            }}
             id='macy-grid'
             className='columns-1 gap-8 md:columns-2 lg:columns-3 xl:columns-4'
           >
