@@ -18,6 +18,7 @@ const variants = {
 
 function Painting({ data }) {
   const [modalOpen, setModalOpen] = useState(false);
+  const [closeButtonVisible, setCloseButtonVisible] = useState(false);
   const { currentPainting: painting, total } = data;
   const navVisible = useScroll();
 
@@ -143,17 +144,23 @@ function Painting({ data }) {
         </div>
       </nav>
 
-      {modalOpen && (
-        <Modal
-          image={{
-            src: painting.images.gallery,
-            width: painting.images.gallerywidth,
-            height: painting.images.galleryheight,
-            alt: painting.name,
-          }}
-          handleClose={() => setModalOpen(false)}
-        />
-      )}
+      <AnimatePresence>
+        {modalOpen && (
+          <Modal
+            closeButtonVisible={closeButtonVisible}
+            handleClose={() => setModalOpen(false)}
+          >
+            <Image
+              src={painting.images.gallery}
+              width={painting.images.gallerywidth}
+              height={painting.images.galleryheight}
+              alt={painting.name}
+              onLoadingComplete={() => setCloseButtonVisible(true)}
+              onClick={(e) => e.stopPropagation()}
+            />
+          </Modal>
+        )}
+      </AnimatePresence>
     </article>
   );
 }
