@@ -77,9 +77,9 @@ function Painting({ data }) {
                   </button>
                 </div>
 
-                <figcaption className='relative -top-12 right-0 mx-auto flex w-full max-w-xl flex-col md:absolute md:top-0 md:items-end xl:-right-80 xl:h-full xl:items-center xl:justify-between'>
+                <figcaption className='relative -top-12 right-0 flex w-full max-w-xl flex-col md:absolute md:top-0 md:items-end xl:-right-40 xl:h-full xl:justify-between'>
                   <div className='w-4/5 bg-white p-6 md:p-16 md:pt-0'>
-                    <h1 className='mb-2 w-72 text-2xl font-bold md:mb-4 md:text-5xl md:leading-tight'>
+                    <h1 className='mb-2 w-full text-2xl font-bold md:mb-4 md:text-5xl md:leading-tight'>
                       {painting.name}
                     </h1>
                     <h2 className='text-sm text-gray-500 lg:text-base'>
@@ -126,18 +126,22 @@ function Painting({ data }) {
       >
         <div className='flex items-center justify-between gap-8'>
           <div>
-            <h3 className='mb-2 text-sm font-bold'>{painting.name}</h3>
-            <h4 className='text-xs text-gray-500'>{painting.artist.name}</h4>
+            <h3 className='mb-2 text-sm font-bold sm:text-lg md:text-xl'>
+              {painting.name}
+            </h3>
+            <h4 className='text-xs text-gray-500 md:text-sm'>
+              {painting.artist.name}
+            </h4>
           </div>
           <div className='flex items-center gap-8'>
             <Link href={`/${painting.id > 1 ? painting.id - 1 : total}`}>
               <a>
-                <Image src={iconBackButton} width={14} height={14} alt='back' />
+                <Image src={iconBackButton} width={18} height={18} alt='back' />
               </a>
             </Link>
             <Link href={`/${painting.id < total ? painting.id + 1 : 1}`}>
               <a>
-                <Image src={iconNextButton} width={14} height={14} alt='next' />
+                <Image src={iconNextButton} width={18} height={18} alt='next' />
               </a>
             </Link>
           </div>

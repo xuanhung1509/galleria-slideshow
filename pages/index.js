@@ -96,8 +96,8 @@ function Painting({ id, name, artist, image }) {
               className='absolute top-0 left-0 w-full transition-colors hover:bg-black/50'
               style={{ height: 'calc(100% - 4px)' }}
             />
-            <figcaption className='pointer-events-none absolute bottom-8 left-4'>
-              <h2 className='mb-2 text-2xl font-bold text-gray-200'>{name}</h2>
+            <figcaption className='pointer-events-none absolute bottom-10 left-8'>
+              <h2 className='mb-2 text-2xl font-bold text-white'>{name}</h2>
               <h3 className='text-sm text-gray-300'>{artist}</h3>
             </figcaption>
           </figure>

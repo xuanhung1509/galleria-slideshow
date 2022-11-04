@@ -14,16 +14,16 @@ function Layout({ children }) {
 function Header() {
   return (
     <header className='mb-8'>
-      <div className='container'>
-        <div className='flex items-center justify-between gap-8 border-b border-gray-200 px-2 pt-6 pb-4'>
+      <div className='container border-b lg:border-b-0'>
+        <div className='flex items-center justify-between gap-8  border-gray-200 px-2 py-4 lg:border-b'>
           <Link href='/'>
-            <a>
-              <Image src={logo} alt='logo' className='cursor-pointer' />
+            <a className='w-32 lg:w-40'>
+              <Image src={logo} alt='logo' />
             </a>
           </Link>
           <button
             type='button'
-            className='text-gray-500 transition-colors hover:text-gray-700'
+            className='mb-1 text-sm text-gray-500 transition-colors hover:text-gray-900 sm:text-base'
           >
             Start Slideshow
           </button>
