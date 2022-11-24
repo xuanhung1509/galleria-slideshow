@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSlideshowContext } from '@/contexts/SlideshowContext';
 import logo from '@/public/assets/shared/logo.svg';
 
 function Layout({ children }) {
@@ -12,6 +13,8 @@ function Layout({ children }) {
 }
 
 function Header() {
+  const { isPlaying, handleToggle } = useSlideshowContext();
+
   return (
     <header className='mb-8'>
       <div className='container border-b lg:border-b-0'>
@@ -24,8 +27,9 @@ function Header() {
           <button
             type='button'
             className='mb-1 text-sm text-gray-500 transition-colors hover:text-gray-900 sm:text-base'
+            onClick={handleToggle}
           >
-            Start Slideshow
+            {isPlaying ? 'Stop' : 'Start'} Slideshow
           </button>
         </div>
       </div>
