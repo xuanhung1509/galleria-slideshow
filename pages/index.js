@@ -109,11 +109,12 @@ function Painting({ id, name, artist, image }) {
 
 export async function getStaticProps() {
   const res = await fetch(`${server}/api/paintings`);
-  const paintings = await res.json();
+  const { paintings, total } = await res.json();
 
   return {
     props: {
       paintings,
+      total,
     },
   };
 }

@@ -16,11 +16,10 @@ const variants = {
   exit: { opacity: 0, x: 200, y: 0 },
 };
 
-function Painting({ data }) {
+function Painting({ painting, total }) {
   const scrollPos = useRef(0);
   const [modalOpen, setModalOpen] = useState(false);
   const [closeButtonVisible, setCloseButtonVisible] = useState(false);
-  const { currentPainting: painting, total } = data;
   const navVisible = useScroll();
 
   // Prevent scrolling when modal open
@@ -176,18 +175,19 @@ function Painting({ data }) {
 
 export async function getStaticProps(context) {
   const res = await fetch(`${server}/api/paintings/${context.params.id}`);
-  const data = await res.json();
+  const { painting, total } = await res.json();
 
   return {
     props: {
-      data,
+      painting,
+      total,
     },
   };
 }
 
 export async function getStaticPaths() {
   const res = await fetch(`${server}/api/paintings`);
-  const paintings = await res.json();
+  const { paintings } = await res.json();
   const ids = paintings.map((painting) => painting.id);
   const paths = ids.map((id) => ({ params: { id: id.toString() } }));
 
